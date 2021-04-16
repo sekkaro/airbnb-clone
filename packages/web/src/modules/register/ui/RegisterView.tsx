@@ -2,6 +2,7 @@ import React from "react";
 import { Button, Form, Input } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { FormikErrors, FormikProps, FormikValues, withFormik } from "formik";
+import * as yup from "yup";
 
 interface FormValues {
   email: string;
@@ -17,6 +18,8 @@ const RegisterView: React.FC<FormikProps<FormValues> & RegisterViewProps> = ({
   handleChange,
   handleBlur,
   handleSubmit,
+  touched,
+  errors,
 }) => (
   <form
     style={{
@@ -30,7 +33,10 @@ const RegisterView: React.FC<FormikProps<FormValues> & RegisterViewProps> = ({
         margin: "auto",
       }}
     >
-      <Form.Item>
+      <Form.Item
+        validateStatus={touched.email && errors.email ? "error" : ""}
+        help={touched.email && errors.email ? errors.email : ""}
+      >
         <Input
           name="email"
           prefix={<UserOutlined className="site-form-item-icon" />}
@@ -40,7 +46,10 @@ const RegisterView: React.FC<FormikProps<FormValues> & RegisterViewProps> = ({
           onBlur={handleBlur}
         />
       </Form.Item>
-      <Form.Item>
+      <Form.Item
+        validateStatus={touched.password && errors.password ? "error" : ""}
+        help={touched.password && errors.password ? errors.password : ""}
+      >
         <Input
           name="password"
           prefix={<LockOutlined className="site-form-item-icon" />}
@@ -56,7 +65,6 @@ const RegisterView: React.FC<FormikProps<FormValues> & RegisterViewProps> = ({
           Forgot password
         </a>
       </Form.Item>
-
       <Form.Item>
         <Button type="primary" htmlType="submit" className="login-form-button">
           Register
@@ -67,7 +75,22 @@ const RegisterView: React.FC<FormikProps<FormValues> & RegisterViewProps> = ({
   </form>
 );
 
+export const emailNotLongEnough = "email must be at least 3 characters";
+export const passwordNotLongEnough = "password must be at least 3 characters";
+export const invalidEmail = "email must be a valid email";
+
+const validationSchema = yup.object().shape({
+  email: yup
+    .string()
+    .min(3, emailNotLongEnough)
+    .max(255)
+    .email(invalidEmail)
+    .required(),
+  password: yup.string().min(3, passwordNotLongEnough).max(255).required(),
+});
+
 export default withFormik<RegisterViewProps, FormValues>({
+  validationSchema,
   mapPropsToValues: () => ({ email: "", password: "" }),
   handleSubmit: async (values, { props, setErrors }) => {
     const errors = await props.submit(values);
