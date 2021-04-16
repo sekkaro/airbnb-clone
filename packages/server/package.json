@@ -1,5 +1,5 @@
 {
-  "name": "graphql-ts-server-boilerplate",
+  "name": "@airbnb-clone/server",
   "version": "0.0.1",
   "description": "Awesome project developed with TypeORM.",
   "devDependencies": {
@@ -56,7 +56,8 @@
     "sparkpost": "^2.1.4",
     "typeorm": "0.2.31",
     "uuid": "^8.3.2",
-    "yup": "^0.32.9"
+    "yup": "^0.32.9",
+    "@airbnb-clone/common": "1.0.0"
   },
   "scripts": {
     "start": "SET NODE_ENV=development&nodemon --exec ts-node src/index.ts",

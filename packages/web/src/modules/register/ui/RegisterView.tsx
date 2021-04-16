@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Form, Input } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { FormikErrors, FormikProps, FormikValues, withFormik } from "formik";
-import * as yup from "yup";
+import { validUserSchema } from "@airbnb-clone/common";
 
 interface FormValues {
   email: string;
@@ -75,22 +75,8 @@ const RegisterView: React.FC<FormikProps<FormValues> & RegisterViewProps> = ({
   </form>
 );
 
-export const emailNotLongEnough = "email must be at least 3 characters";
-export const passwordNotLongEnough = "password must be at least 3 characters";
-export const invalidEmail = "email must be a valid email";
-
-const validationSchema = yup.object().shape({
-  email: yup
-    .string()
-    .min(3, emailNotLongEnough)
-    .max(255)
-    .email(invalidEmail)
-    .required(),
-  password: yup.string().min(3, passwordNotLongEnough).max(255).required(),
-});
-
 export default withFormik<RegisterViewProps, FormValues>({
-  validationSchema,
+  validationSchema: validUserSchema,
   mapPropsToValues: () => ({ email: "", password: "" }),
   handleSubmit: async (values, { props, setErrors }) => {
     const errors = await props.submit(values);

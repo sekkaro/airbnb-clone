@@ -1,15 +1,15 @@
 import * as faker from "faker";
 import { Connection } from "typeorm";
+import {
+  emailNotLongEnough,
+  invalidEmail,
+  passwordNotLongEnough,
+} from "@airbnb-clone/common";
 
 import { User } from "../../../entity/User";
 import { createTestConn } from "../../../testUtils/createTestConn";
 import { TestClient } from "../../../utils/TestClient";
-import {
-  duplicateEmail,
-  emailNotLongEnough,
-  invalidEmail,
-  passwordNotLongEnough,
-} from "./errorMessages";
+import { duplicateEmail } from "./errorMessages";
 
 faker.seed(Date.now() + 5);
 const email = faker.internet.email();
