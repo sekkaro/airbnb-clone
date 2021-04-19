@@ -1,8 +1,16 @@
-import React from "react";
-import { Button, Form, Input } from "antd";
-import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import { FormikErrors, FormikProps, FormikValues, withFormik } from "formik";
 import { validUserSchema } from "@airbnb-clone/common";
+import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { Button, Form as AntForm } from "antd";
+import {
+  Field,
+  FormikErrors,
+  FormikProps,
+  FormikValues,
+  withFormik,
+  Form,
+} from "formik";
+import React from "react";
+import { InputField } from "../../shared/InputField";
 
 interface FormValues {
   email: string;
@@ -13,19 +21,13 @@ interface RegisterViewProps {
   submit: (values: FormValues) => Promise<FormikErrors<FormikValues> | null>;
 }
 
-const RegisterView: React.FC<FormikProps<FormValues> & RegisterViewProps> = ({
-  values,
-  handleChange,
-  handleBlur,
-  handleSubmit,
-  touched,
-  errors,
-}) => (
-  <form
+const RegisterView: React.FC<
+  FormikProps<FormValues> & RegisterViewProps
+> = ({}) => (
+  <Form
     style={{
       display: "flex",
     }}
-    onSubmit={handleSubmit}
   >
     <div
       style={{
@@ -33,46 +35,32 @@ const RegisterView: React.FC<FormikProps<FormValues> & RegisterViewProps> = ({
         margin: "auto",
       }}
     >
-      <Form.Item
-        validateStatus={touched.email && errors.email ? "error" : ""}
-        help={touched.email && errors.email ? errors.email : ""}
-      >
-        <Input
-          name="email"
-          prefix={<UserOutlined className="site-form-item-icon" />}
-          placeholder="Email"
-          value={values.email}
-          onChange={handleChange}
-          onBlur={handleBlur}
-        />
-      </Form.Item>
-      <Form.Item
-        validateStatus={touched.password && errors.password ? "error" : ""}
-        help={touched.password && errors.password ? errors.password : ""}
-      >
-        <Input
-          name="password"
-          prefix={<LockOutlined className="site-form-item-icon" />}
-          type="password"
-          placeholder="Password"
-          value={values.password}
-          onChange={handleChange}
-          onBlur={handleBlur}
-        />
-      </Form.Item>
-      <Form.Item>
+      <Field
+        name="email"
+        prefix={<UserOutlined className="site-form-item-icon" />}
+        placeholder="Email"
+        component={InputField}
+      />
+      <Field
+        name="password"
+        type="password"
+        prefix={<LockOutlined className="site-form-item-icon" />}
+        placeholder="Password"
+        component={InputField}
+      />
+      <AntForm.Item>
         <a className="login-form-forgot" href="">
           Forgot password
         </a>
-      </Form.Item>
-      <Form.Item>
+      </AntForm.Item>
+      <AntForm.Item>
         <Button type="primary" htmlType="submit" className="login-form-button">
           Register
         </Button>
         Or <a href="">login now!</a>
-      </Form.Item>
+      </AntForm.Item>
     </div>
-  </form>
+  </Form>
 );
 
 export default withFormik<RegisterViewProps, FormValues>({
