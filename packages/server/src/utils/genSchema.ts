@@ -4,7 +4,7 @@ import * as fs from "fs";
 import { makeExecutableSchema } from "graphql-tools";
 import * as glob from "glob";
 
-export const genSchema = (): any => {
+export const genSchema = () => {
   const pathToModules = path.join(__dirname, "../modules");
   const graphqlTypes = glob
     .sync(`${pathToModules}/**/*.graphql`)

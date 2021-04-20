@@ -4,10 +4,10 @@ import { createForgotPasswordLink } from "../../../utils/createForgotPasswordLin
 import { TestClient } from "../../../utils/TestClient";
 import * as Redis from "ioredis";
 import * as faker from "faker";
+import { passwordNotLongEnough } from "@airbnb-clone/common";
 
 import { forgotPasswordLockAccount } from "../../../utils/forgotPasswordLockAccount";
 import { forgotPasswordLockedError } from "../login/errorMessages";
-import { passwordNotLongEnough } from "../register/errorMessages";
 import { expiredKeyError } from "./errorMessages";
 import { createTestConn } from "../../../testUtils/createTestConn";
 
