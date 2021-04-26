@@ -2,7 +2,7 @@ import * as React from "react";
 import {
   RegisterMutationVariables,
   useRegisterMutation,
-} from "src/generated/graphql";
+} from "../../generated/graphql";
 
 interface RegisterControllerProps {
   children: (data: {

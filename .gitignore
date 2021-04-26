@@ -5,4 +5,5 @@ build/
 temp/
 ormconfig.json
 .env
+.env.prod
 dist
