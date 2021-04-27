@@ -7,3 +7,5 @@ ormconfig.json
 .env
 .env.prod
 dist
+# Local Netlify folder
+.netlify
